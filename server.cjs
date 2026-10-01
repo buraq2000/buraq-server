@@ -78,9 +78,11 @@ async function sendCallPush(userToCall, from, fromName) {
       },
     });
 
-    console.log("PUSH sent to", userToCall);
-  } catch (error) {
-    console.log("PUSH failed:", error.message);
+ data: {
+  type: "incoming_call",
+  callerId: String(from),
+  callerName: String(fromName || from),
+},
 
     if (
       error.code === "messaging/registration-token-not-registered" ||
