@@ -64,9 +64,10 @@ async function sendCallPush(userToCall, from, fromName) {
         title: "Buraq",
         body: (fromName || "Someone") + " is calling you",
       },
-      data: {
+           data: {
         type: "incoming-call",
-        from: String(from || ""),
+        callerId: String(from || ""),
+        callerName: String(from || ""),
       },
       android: {
         priority: "high",
@@ -78,11 +79,9 @@ async function sendCallPush(userToCall, from, fromName) {
       },
     });
 
- data: {
-  type: "incoming_call",
-  callerId: String(from),
-  callerName: String(fromName || from),
-},
+    console.log("PUSH sent to", userToCall);
+  } catch (error) {
+    console.log("PUSH error:", error.message);
 
     if (
       error.code === "messaging/registration-token-not-registered" ||
@@ -96,7 +95,6 @@ async function sendCallPush(userToCall, from, fromName) {
     }
   }
 }
-
 // =========================
 // SOCKET
 // =========================
